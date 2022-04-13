@@ -2,41 +2,37 @@
 
 module main(y, a, b);
 
+    input a, b;
+    reg da, db; //?
+    output y[3:0]; //?
+
+    DFlipFlop DFlipFlop(a, clk, clr, da, da_not); // clk, clr are not defined. dx, dx_not probably not working.
+    DFlipFlop DFlipFlop(b, clk, clr, db, db_not); // clk, clr are not defined. dx, dx_not probably not working.
+
+    wire da_and_db;
+    and(da_and_db, da, db);
+
+    wire da_and_db_not;
+    and(da_and_db_not, da, db_not);
+
+    wire da_nand_db;
+    nand(da_nand_db, da, db);
+
+    wire da_nand__da_nand_db;
+    nand(da_nand__da_nand_db, da, da_nand_db);
+
+    wire db_nand__da_nand_db;
+    nand(db_nand__da_nand_db, db, da_nand_db);
+
+    wire total_nand;
+    nand(total_nand, da_nand__da_nand_db, db_nand__da_nand_db);
+
+    y[0] <= da_and_db;
+    y[1] <= da_and_db_not;
+    y[2] <= total_nand;
+    y[3] <= db;
 
 
-    input a, b, c, d, e;
-    output y;
-
-    wire d_not;
-    wire e_not;
-
-    not(d_not, d)
-    not(e_not, e)
-
-    wire e_and_d_not;
-    and(e_and_d_not, e_not, d_not);
-
-    wire e_not_and_d;
-    and(e_not_and_d, e_not, d);
-
-    wire e_and_d_not__not;
-    not(e_and_d_not__not, e_and_d_not);
-
-    wire e_not_and_d__not;
-    not(e_not_and_d__not, e_not_and_d);
-
-    /*
-        i0 -> d
-        i1 -> e_not_and_d
-        i2 -> e_and_d_not
-        i3 -> e_and_d_not
-        i4 -> e_and_d_not__not
-        i5 -> e_and_d_not
-        i6 -> d_not
-        i7 -> e_not_and_d__not
-
-        a,b,c -> a,b,c
-    */
 
 
 endmodule

@@ -2,7 +2,6 @@
 
 
 module circuit(y, a, b, c, d, e);
->>>>>>> 0c02a447f5053ffb8b485816bae6025c2acdad8f
 
     input a, b, c, d, e;
     output y;
