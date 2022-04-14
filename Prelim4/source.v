@@ -1,13 +1,13 @@
 `timescale 1ns / 1ns
 
-module main(y, a, b);
+module main(y0, y1, y2, y3, clk, a, b);
 
-    input a, b;
-    reg da, db; //?
-    output y[3:0]; //?
+    input a, b, clk;
+    wire da, db; //?
+    output y0, y1, y2, y3; //?
 
-    DFlipFlop DFlipFlop(a, clk, clr, da, da_not); // clk, clr are not defined. dx, dx_not probably not working.
-    DFlipFlop DFlipFlop(b, clk, clr, db, db_not); // clk, clr are not defined. dx, dx_not probably not working.
+    DFlipFlop first(a, clk, clr, da, da_not); // clk, clr are not defined. dx, dx_not probably not working.
+    DFlipFlop second(b, clk, clr, db, db_not); // clk, clr are not defined. dx, dx_not probably not working.
 
     wire da_and_db;
     and(da_and_db, da, db);
@@ -27,12 +27,12 @@ module main(y, a, b);
     wire total_nand;
     nand(total_nand, da_nand__da_nand_db, db_nand__da_nand_db);
 
-    y[0] <= da_and_db;
-    y[1] <= da_and_db_not;
-    y[2] <= total_nand;
-    y[3] <= db;
 
+    assign y3 = da_and_db;
+    assign y2 = da_and_db_not;
+    assign y1 = total_nand;
+    assign y0 = db;
 
-
+    // y <= {da_and_db, da_and_db_not, total_nand, db}
 
 endmodule
