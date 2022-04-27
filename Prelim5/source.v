@@ -40,5 +40,16 @@ module circuit(y, s2, s1, s0, i);
     or(y2, and3, and4, s2, s1, s0);
     // OTHER_PART //
 
+    // ANOTHER_PART //
+    wire and5;
+    and(and5, s2_not, s1, s0, i);
+
+    wire and6;
+    and(and6, s2, s1_not, i);
+
+    wire y3;
+    or(y3, and5, and6);
+    // ANOTHER_PART //
+
     
 endmodule
