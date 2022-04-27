@@ -3,6 +3,8 @@
 
 module circuit(y, s2, s1, s0, i);
 
+
+    // OUTPUT_PART //
     input s2, s1, s0, i;
     output y;
 
@@ -25,5 +27,18 @@ module circuit(y, s2, s1, s0, i);
     and(and2, s2, s1_not, s0, i);
 
     or(y, and1, and2);
+    // OUTPUT_PART //
+
+    // OTHER_PART //
+    wire and3;
+    and(and3, s2_not, s0_not, i);
+
+    wire and4;
+    and(and4, s1_not, i);
+
+    wire y2;
+    or(y2, and3, and4, s2, s1, s0);
+    // OTHER_PART //
+
     
 endmodule
